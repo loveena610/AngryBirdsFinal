@@ -53,7 +53,7 @@ function draw(){
         noStroke();
         textSize(35)
         fill("white")
-        text("Score  " + score, width-300, 50)
+        text("Score: " + score, width-300, 50)
     
     Engine.update(engine);
     //strokeWeight(4);
@@ -78,7 +78,8 @@ function draw(){
     platform.display();
     //log6.display();
     slingshot.display();
-    console.log(bird.body.speed);    
+    // console.log(bird.body.speed);   
+    //console.log(hour); 
 }
 
 function mouseDragged(){
@@ -94,10 +95,11 @@ function mouseReleased(){
 }
 
 function keyPressed(){
-    if(keyCode === 32 && bird.body.speed < 1){
+    if(touches.length>0 || (keyCode === 32 && bird.body.speed < 1)){
        bird.trajectory = [];
        Matter.Body.setPosition(bird.body,{x:200, y:50});
        slingshot.attach(bird.body);
+       touches=[];
     }
 }
 
@@ -108,13 +110,13 @@ async function getBackgroundImg(){
     var datetime = responseJSON.datetime;
     var hour = datetime.slice(11,13);
     
-    if(hour>=0600 && hour<=1900){
-        bg = "sprites/bg1.png";
+    if(hour>=06 && hour<=19){
+        bg = "sprites/bg.png";
     }
     else{
         bg = "sprites/bg2.jpg";
     }
 
     backgroundImg = loadImage(bg);
-    console.log(backgroundImg);
+    console.log(hour);    
 }
